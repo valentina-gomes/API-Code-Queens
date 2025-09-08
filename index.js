@@ -57,7 +57,49 @@ app.get('/pessoa/:id', (req, res) =>{
     
     res.json(pessoa);
 
+
 });
+
+
+
+app.put('/pessoa2/:id' , (req, res) => {
+    const id = parseInt(req.params.id);
+    const pessoa =  pessoas.find( u => u.id === id) ;
+
+    if (!pessoa) {
+        return res.status(484).json({error: "Usuario não encontrado" })
+    }
+    
+
+
+    const {nome, idade , signo} = req.body;
+
+     novaPessoa= req.body;
+     console.log("pessoa antiga : " ,pessoa)
+     console.log("pessoa antiga : " ,novaPessoa)
+
+
+
+     pessoas[pessoa.id - 1] = novaPessoa
+     console.log("pessoas: " ,pessoa);
+    res.json(pessoas);
+
+});
+
+app.delete("/removerPessoa/:id" , (res , req) => {
+    const id = parseInt(req.params.id);
+    const pessoa =  pessoas.find( u => u.id === id) ;
+
+    if (!pessoa) {
+        return res.status(484).json({error: "Usuario não encontrado" })
+    }
+
+
+pessoas.splice(pessoas.id - 1 , 1) ;
+console.log(pessoas) ;
+res.json(pessoas);
+
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {
